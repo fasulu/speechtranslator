@@ -32,22 +32,28 @@ function TranslatorPage() {
 
     e.preventDefault();
 
-    if (!isMicrophoneAvailable) {
-      return <h2>Microphone is not enabled.</h2>;
+    try {
+
+      if (!isMicrophoneAvailable) {
+        return <h2>Microphone is not enabled.</h2>;
+    
+      } else {
+        
+          if (!browserSupportsSpeechRecognition) {
+            return <span>Browser doesn't support speech recognition.</span>;
+          } else {
+            SpeechRecognition.startListening({ continue: true })
+          }
   
-    } else {
+      }
+  
+      console.log(languageFrom.split(" ")[0], languageTo.split(" ")[0])
+      console.log(`languageFrom ${languageFrom}  languageTo ${languageTo}`)
+      console.log(`wordInput ${wordInput}  wordOutput ${wordOutput}`)
       
-        if (!browserSupportsSpeechRecognition) {
-          return <span>Browser doesn't support speech recognition.</span>;
-        } else {
-          SpeechRecognition.startListening({ continue: true })
-        }
-
+    } catch (error) {
+      console.log(error)
     }
-
-    console.log(languageFrom.split(" ")[0], languageTo.split(" ")[0])
-    console.log(`languageFrom ${languageFrom}  languageTo ${languageTo}`)
-    console.log(`wordInput ${wordInput}  wordOutput ${wordOutput}`)
 
   }
 
