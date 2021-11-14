@@ -3,10 +3,16 @@ import axios from 'axios';
 
 function ComboBoxLanguage(props) {
 
-    const [languageOption, setLanguageOption] = useState([])
-
     const languageUrl = "https://libretranslate.de/languages"
     //curl -X GET "https://libretranslate.de/languages" -H  "accept: application/json"
+    
+    const [languageOption, setLanguageOption] = useState([])
+    const customStyle = {
+        minWidth: '155px',
+        minHeight: '30px',
+        fontSize: '20px',
+        textAlign: 'left'
+      }
 
     useEffect(() => {
         fetchData();
@@ -37,9 +43,9 @@ function ComboBoxLanguage(props) {
                 onChange={(e) => setLanguageFrom(e.target.value)}>
                 {languageOption.map(elem => <option key={elem.code} value={elem.code} > {elem.name}</option>)}
             </select> */}
-            <select>
+            <select style={customStyle}>
                 {languageOption.map(elem =>{
-                    return (<option key={elem.code} > {elem.name}</option>)
+                    return (<option key={elem.code} > {elem.code} {elem.name}</option>)
                 } )}
             </select>
         </>
