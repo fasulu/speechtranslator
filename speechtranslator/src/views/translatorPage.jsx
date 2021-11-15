@@ -10,8 +10,11 @@ function TranslatorPage() {
   const languageUrl = "https://libretranslate.de/languages"
   //curl -X GET "https://libretranslate.de/languages" -H  "accept: application/json"
 
-  const [languageFrom, setLanguageFrom] = useState("")
-  const [languageTo, setLanguageTo] = useState("")
+  const translateUrl = "https://libretranslate.de/translate"
+  // curl -X POST "https://libretranslate.de/translate" -H  "accept: application/json" -H  "Content-Type: application/x-www-form-urlencoded" -d "q=what&source=en&target=fr&format=text&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+  const [languageFrom, setLanguageFrom] = useState("en")
+  const [languageTo, setLanguageTo] = useState("en")
   const [wordInput, setWordInput] = useState("")
   const [wordOutput, setWordOutput] = useState("")
 
@@ -28,29 +31,62 @@ function TranslatorPage() {
   const textfieldStyle = { marginRight: 20, marginTop: 10, minWidth: 350, fontSize: '25px' }
   const translateStyle = { background: 'green', color: 'white', marginRight: 15 }
 
-  const translate = (e) => {
+  const translate = async (e) => {
 
     e.preventDefault();
 
+    var source=languageFrom.split(" ")[0]
+    var target=languageTo.split(" ")[0]
+    
+
+
     try {
 
-      if (!isMicrophoneAvailable) {
-        return <h2>Microphone is not enabled.</h2>;
-    
-      } else {
-        
-          if (!browserSupportsSpeechRecognition) {
-            return <span>Browser doesn't support speech recognition.</span>;
-          } else {
-            SpeechRecognition.startListening({ continue: true })
-          }
-  
-      }
-  
+      // if (!isMicrophoneAvailable) {
+      //   return <h2>Microphone is not enabled.</h2>;
+
+      // } else {
+
+      //   if (!browserSupportsSpeechRecognition) {
+      //     return <span>Browser doesn't support speech recognition.</span>;
+      //   } else {
+      //     SpeechRecognition.startListening({ continue: true })
+      //   }
+
+      // const dataDetail = {
+      //   q: transcript,
+      //   source: languageFrom,
+      //   target: languageTo,
+      //   api_key: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      // }, {
+      //   header: {
+      //     'accept': 'application/json',
+      //     'Content=Type': 'application/x-www-form-urlencoded'
+      //   }
+      // }
+
+
+      const response = await axios.post(translateUrl, {
+        q: wordInput,
+        source: source,
+        target: target,
+        api_key: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      }, {
+        header: {
+          'accept': 'application/json',
+          'Content=Type': 'application/x-www-form-urlencoded'
+        }
+      })
+
+      console.log(response.data)
+      setWordOutput(response.data.translatedText)
+
+      // }
+
       console.log(languageFrom.split(" ")[0], languageTo.split(" ")[0])
       console.log(`languageFrom ${languageFrom}  languageTo ${languageTo}`)
       console.log(`wordInput ${wordInput}  wordOutput ${wordOutput}`)
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -87,14 +123,14 @@ function TranslatorPage() {
 
         <div>
           <TextField style={textfieldStyle}
-            // onChange={(e) => setWordInput(e.target.value)}
-            value={transcript} 
-            disabled cols="25" rows="3">
+            onChange={(e) => setWordInput(e.target.value)}
+            value={wordInput}
+            cols="25" rows="3">
           </TextField>
         </div>
         <div>
           <TextField style={textfieldStyle}
-            onChange={(e) => setWordOutput(e.target.value)}
+          value={wordOutput}
             disabled cols="25" rows="3">
           </TextField>
         </div>
