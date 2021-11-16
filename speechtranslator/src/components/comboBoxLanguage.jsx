@@ -44,7 +44,7 @@ function ComboBoxLanguage(props) {
                 {languageOption.map(elem => <option key={elem.code} value={elem.code} > {elem.name}</option>)}
             </select> */}
             <select style={customStyle}>
-                <option defaultValue disabled >{props.name}...</option>
+                <option defaultValue >{props.name}...</option>
                 {languageOption.map(elem => {
                     return (<option key={elem.code} > {elem.code} {elem.name}</option>)
                 })}
