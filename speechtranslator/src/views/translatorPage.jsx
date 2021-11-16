@@ -78,8 +78,6 @@ function TranslatorPage() {
 
       console.log(languageFrom.split(" ")[0], languageTo.split(" ")[0])
       console.log(`languageFrom ${languageFrom}  languageTo ${languageTo}`)
-      console.log(`wordInput ${wordInput}`)
-      console.log(`transcript ${transcript}`)
 
     } catch (error) {
       console.log(error)
@@ -93,16 +91,16 @@ function TranslatorPage() {
 
         <Grid container align='center'>
 
-          <Grid items sm={9} xs={7} align='center'>
+          <Grid item sm={9} xs={7} align='center'>
             <h2>Voice Translator</h2>
           </Grid>
-          <Grid items sm={1} xs={2} align='center' >
+          <Grid item sm={1} xs={2} align='center' >
             <Avatar style={micStyle}
               title="Accept Voice"
               onClick={recordVoice} >
               <MicIcon /> </Avatar>
           </Grid>
-          <Grid items sm={1} xs={2} align='center' >
+          <Grid item sm={1} xs={2} align='center' >
             <h6>{listening ? 'On' : 'Off'}</h6>
           </Grid>
 
@@ -110,14 +108,14 @@ function TranslatorPage() {
 
         <Grid container align='center'>
 
-          <Grid items sm={6} xs={12} style={gridStyle}
+          <Grid item sm={6} xs={12} style={gridStyle}
             onChange={(e) => setLanguageFrom(e.target.value)}
             value={languageFrom} >
             <ComboBoxLanguage
               name="Languages" />
 
           </Grid>
-          <Grid items sm={6} xs={12} style={gridStyle}
+          <Grid item sm={6} xs={12} style={gridStyle}
             onChange={(e) => setLanguageTo(e.target.value)}
             value={languageTo} >
             <ComboBoxLanguage
