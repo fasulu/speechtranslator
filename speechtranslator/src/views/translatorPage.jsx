@@ -57,7 +57,8 @@ function TranslatorPage() {
 
     var source = languageFrom.split(" ")[0]
     var target = languageTo.split(" ")[0]
-    console.log(transcript, wordOutput, languageFrom.split(" ")[0], languageTo.split(" ")[0])
+    console.log(transcript, wordOutput)
+    console.log(`languageFrom ${languageFrom}  languageTo ${languageTo}`)
 
     try {
       const response = await axios.post(translateUrl, {
@@ -76,9 +77,6 @@ function TranslatorPage() {
       console.log(response.data)
       setWordOutput(response.data.translatedText)
 
-      console.log(languageFrom.split(" ")[0], languageTo.split(" ")[0])
-      console.log(`languageFrom ${languageFrom}  languageTo ${languageTo}`)
-
     } catch (error) {
       console.log(error)
     }
@@ -88,9 +86,7 @@ function TranslatorPage() {
   return (
     <Container maxWidth='sm'>
       <Paper elevation={5} style={paperStyle}>
-
         <Grid container align='center'>
-
           <Grid item sm={9} xs={7} align='center'>
             <h2>Voice Translator</h2>
           </Grid>
@@ -103,7 +99,6 @@ function TranslatorPage() {
           <Grid item sm={1} xs={2} align='center' >
             <h6>{listening ? 'On' : 'Off'}</h6>
           </Grid>
-
         </Grid>
 
         <Grid container align='center'>
@@ -120,7 +115,6 @@ function TranslatorPage() {
             value={languageTo} >
             <ComboBoxLanguage
               name="Languages" />
-
           </Grid>
 
         </Grid>
@@ -148,7 +142,6 @@ function TranslatorPage() {
             onClick={(e) => translate(e)}
           > Translate</Button>
         </Grid>
-
       </Paper>
     </Container >
   );
